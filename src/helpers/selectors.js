@@ -46,34 +46,22 @@ export function getInterviewersForDay(state, day) {
   const days = state.days;
 
   //holds all appointment IDs for a given day
-  let focusAppointmentId;
+  let interviewerIds;
 
   for (let specificDay of days) {
     if(specificDay.name === day){
-      focusAppointmentId =  specificDay.appointments;
+      interviewerIds =  specificDay.interviewers;
     }
   }
 
   //when day is not found
-  if(!focusAppointmentId) return [];
+  if(!interviewerIds) return [];
 
-  //hold all interview IDs for a specific day
-  let interviewerIDs = [];
-
-  const appts = state.appointments;
-
-  for(const appt of Object.values(appts)){
-    if(appt.interview && focusAppointmentId.includes(appt.id)){
-      interviewerIDs.push(appt.interview.interviewer)
-    }
-  }
-
-  //will be populated with interviewer objects
   let interviewersForDay = [];
-
   const interviewers = state.interviewers;
+
   for(const interviewer of Object.values(interviewers)){
-    if(interviewerIDs.includes(interviewer.id)){
+    if(interviewerIds.includes(interviewer.id)){
       interviewersForDay.push(interviewer)
     }
   }
