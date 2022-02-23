@@ -21,3 +21,6 @@ export function useVisualMode(initial){
  
 
 }
+
+
+//result.current.mode = INITAL
