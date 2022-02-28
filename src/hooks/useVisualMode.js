@@ -9,9 +9,7 @@ export default function useVisualMode (initial){
     setMode(newMode)
     
     if(replace){
-      let historyCopy = [...history];
-      historyCopy.pop();
-      return setHistory([...historyCopy, newMode])
+      return setHistory(prev => [...prev.slice(0, prev.length - 1), newMode]);
     }
 
     return setHistory(prev => [...prev, newMode])
