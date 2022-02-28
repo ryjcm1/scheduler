@@ -40,7 +40,7 @@ export default function Appointment(props){
     })
   }
 
-  const deleteAppointment = (id) => {
+  const destroy = (id) => {
     transition(DELETING, true);
 
     props.cancelInterview(id)
@@ -67,7 +67,7 @@ export default function Appointment(props){
       )}
       {mode === CREATE && (<Form interviewers={props.interviewers} onCancel={back} onSave={save}/>)}
       {mode === SAVING && <Status message="Saving"/>}
-      {mode === CONFIRM && <Confirm message="Are you sure you like to delete?" onCancel={back} onConfirm={()=> deleteAppointment(props.id)}/>}
+      {mode === CONFIRM && <Confirm message="Are you sure you like to delete?" onCancel={back} onConfirm={()=> destroy(props.id)}/>}
       {mode === DELETING && <Status message="Deleting"/>}
       {mode === EDIT && (<Form student={props.interview.student} interviewer={props.interview.interviewer.id} interviewers={props.interviewers} onCancel={back} onSave={save}/>)}
       {mode === ERROR_SAVE && <Error message="Error occurred while saving!" onClose={back}/>}
