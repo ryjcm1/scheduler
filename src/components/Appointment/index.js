@@ -12,7 +12,6 @@ const CREATE = "CREATE";
 
 export default function Appointment(props){
   const {mode , transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
-  // const appointmentStatus = props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer}/> : <Empty />;
 
   const save = (name, interviewer) => {
     const interview = {
@@ -20,8 +19,10 @@ export default function Appointment(props){
       interviewer
     };
 
-    props.bookInterview(props.id, interview);
-    transition(SHOW);
+    props.bookInterview(props.id, interview)
+    .then(()=>{
+      transition(SHOW);
+    })
   }
 
   return(
