@@ -22,16 +22,43 @@ export default function Application(props) {
       interview: { ...interview }
     };
 
+    // console.log("appointment: ", appointment)
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
+
+    // console.log("appointments: ", appointments)
+
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(()=>{
       setState({...state, appointments:appointments});
     })
     .catch(err => console.log(err.message))
+  }
+
+  const cancelInterview = (id) => {
+    // console.log("cancel Interview:",id, interview)
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // console.log("The new appointments are", appointments)
+    return axios.delete(`/api/appointments/${id}`)
+    .then(()=>{
+      setState({...state, appointments:appointments});
+    })
+    .catch(err => console.log(err.message))
+
   }
   
   const setDay = day => setState({ ...state, day });
@@ -50,6 +77,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
