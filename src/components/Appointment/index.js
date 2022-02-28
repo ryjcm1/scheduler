@@ -14,6 +14,13 @@ export default function Appointment(props){
   const {mode , transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
   // const appointmentStatus = props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer}/> : <Empty />;
 
+  const save = (name, interviewer) => {
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
+
   return(
     <article className="appointment">
       <Header time={props.time} />
