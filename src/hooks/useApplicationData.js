@@ -24,6 +24,7 @@ const useApplicationData = () => {
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(()=>{
+      updateSpots(id)
       setState({...state, appointments:appointments});
     })
 
@@ -44,6 +45,7 @@ const useApplicationData = () => {
 
     return axios.delete(`/api/appointments/${id}`)
     .then(()=>{
+      updateSpots(id, true)
       setState({...state, appointments:appointments});
     })
 
@@ -51,6 +53,17 @@ const useApplicationData = () => {
   
 
   const setDay = day => setState({ ...state, day });
+
+  const updateSpots = (id, decrease = false) => {
+    state.days.forEach(day => {
+      if(day.appointments.includes(id) && !decrease){
+        day.spots ++
+
+      }else if(day.appointments.includes(id) && decrease){
+        day.spots --
+      }
+    })
+  }
 
   
   useEffect(()=>{
