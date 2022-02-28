@@ -36,7 +36,7 @@ export default function Application(props) {
     .then(()=>{
       setState({...state, appointments:appointments});
     })
-    .catch(err => console.log(err.message))
+    // .catch(err => console.log(err.message))
   }
 
   const cancelInterview = (id) => {
