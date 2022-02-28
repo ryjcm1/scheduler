@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+// import {getAppointmentsForDay} from "../helpers/selectors"
 
 
 const useApplicationData = () => {
@@ -11,6 +12,10 @@ const useApplicationData = () => {
   })
 
   const bookInterview = (id, interview) => {
+
+    //when appointment is not null, changes that will be applied should not effect spots
+    const isEdit = state.appointments[id].interview ? true : false;
+    // console.log("Editing status is : ", isEdit);
 
     const appointment = {
       ...state.appointments[id],
@@ -24,7 +29,9 @@ const useApplicationData = () => {
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(()=>{
-      updateSpots(id)
+      if(!isEdit){
+        updateSpots(id)
+      }
       setState({...state, appointments:appointments});
     })
 
@@ -51,18 +58,21 @@ const useApplicationData = () => {
 
   }
   
-
   const setDay = day => setState({ ...state, day });
 
-  const updateSpots = (id, decrease = false) => {
-    state.days.forEach(day => {
-      if(day.appointments.includes(id) && !decrease){
-        day.spots ++
 
-      }else if(day.appointments.includes(id) && decrease){
-        day.spots --
+  //updates the number of interview spots in the day corresponding to a specific appointment id
+  const updateSpots = (id, increase = false) => {
+    state.days.forEach(day => {
+
+      const increment = increase ? 1 : -1;
+
+      if(day.appointments.includes(id)){
+        day.spots += increment
       }
+
     })
+    
   }
 
   
@@ -73,8 +83,8 @@ const useApplicationData = () => {
       axios.get("/api/interviewers")
     ]).then((all) => {
 
-      const [first, second, third] = all;
-      setState(prev => ({...prev, days: first.data, appointments: second.data, interviewers: third.data}))
+      const [days, appointments, interviewers] = all;
+      setState(prev => ({...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}))
 
     })
     .catch(err => console.log(err.message))
