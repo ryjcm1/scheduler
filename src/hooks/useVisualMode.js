@@ -5,15 +5,16 @@ export default function useVisualMode (initial){
   const [history, setHistory] = useState([initial])
 
   function transition (newMode, replace = false) {
+
+    setMode(newMode)
+    
     if(replace){
       let historyCopy = [...history];
       historyCopy.pop();
-      setHistory([...historyCopy, newMode])
-      return setMode(newMode)
+      return setHistory([...historyCopy, newMode])
     }
 
-    setMode(newMode)
-    setHistory([...history, newMode])
+    return setHistory(prev => [...prev, newMode])
   }
 
   function back(){
