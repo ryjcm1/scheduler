@@ -22,3 +22,4 @@ describe("Appointment", () => {
     render(<Appointment />);
   });
 });
+
