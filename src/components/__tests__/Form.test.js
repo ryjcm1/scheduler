@@ -1,6 +1,6 @@
 
 import React from "react";
-// import { fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
 import { render, cleanup, getQueriesForElement } from "@testing-library/react";
 
@@ -26,7 +26,7 @@ describe("Form", () => {
 
   it("renders with initial student name", () => {
     const { getByTestId } = render(
-      <Form interviewers={interviewers} student="Lydia Miller-Jones" />
+      <Form interviewers={interviewers} name="Lydia Miller-Jones" />
     );
     expect(getByTestId("student-name-input")).toHaveValue("Lydia Miller-Jones");
   });
@@ -35,7 +35,7 @@ describe("Form", () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
     /* 2. Render the Form with interviewers and the onSave mock function passed as an onSave prop, the name prop should be blank or undefined */
-    const { getByTestId } = render(
+    const { getByText } = render(
       <Form interviewers={interviewers} onSave={onSave} />
     );
     /* 3. Click the save button */
@@ -53,7 +53,7 @@ describe("Form", () => {
       <Form
         interviewers={interviewers}
         onSave={onSave}
-        student="Lydia Miller-Jones"
+        name="Lydia Miller-Jones"
       />
     );
     /* 3. Click the save button */
