@@ -9,7 +9,7 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
-  const bookInterview = (id, interview) => {
+  const bookInterview = (interview) => {
     //when appointment is not null, changes that will be applied should not effect spots
     const isEdit = state.appointments[id].interview ? true : false;
     // console.log("Editing status is : ", isEdit);
