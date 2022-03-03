@@ -24,6 +24,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -42,6 +43,7 @@ export default function Appointment(props) {
       });
   };
 
+
   const destroy = (id) => {
     transition(DELETING, true);
 
@@ -55,6 +57,8 @@ export default function Appointment(props) {
       });
   };
 
+  
+  //dependent on state mode, different appointment views will be shown
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time} />

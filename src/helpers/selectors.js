@@ -1,5 +1,7 @@
+
+
+  //... returns an array of appointments for the specific day day
 export function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for that day
 
   if (!state.days || !state.appointments) return [];
 
@@ -27,6 +29,8 @@ export function getAppointmentsForDay(state, day) {
   return focusAppointments;
 }
 
+
+//returns updated appointment where interviewer information is added onto the interview property
 export function getInterview(state, interview) {
   if (interview === null) return null;
 
@@ -36,6 +40,8 @@ export function getInterview(state, interview) {
   return { ...interview, interviewer: interviewerProfile };
 }
 
+
+//retrieves all interviewers for a specific day
 export function getInterviewersForDay(state, day) {
   if (!state.days || !state.interviewers) return [];
 

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
+
 const useApplicationData = () => {
   const [state, setState] = useState({
     day: "Monday",
@@ -9,10 +11,10 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
+
   const bookInterview = (id, interview) => {
     //when appointment is not null, changes that will be applied should not effect spots
     const isEdit = state.appointments[id].interview ? true : false;
-    // console.log("Editing status is : ", isEdit);
 
     const appointment = {
       ...state.appointments[id],
@@ -26,6 +28,7 @@ const useApplicationData = () => {
 
     return axios.put(`/api/appointments/${id}`, appointment).then(() => {
       if (!isEdit) {
+        //update spot number when the action is for booking and interview
         return setState({
           ...state,
           days: updateSpots(id),
@@ -36,6 +39,8 @@ const useApplicationData = () => {
     });
   };
 
+
+  //deletes specified interview and updates spot accordingly
   const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
@@ -56,8 +61,13 @@ const useApplicationData = () => {
     });
   };
 
+
+  //changes the selected day
   const setDay = (day) => setState({ ...state, day });
 
+
+  //used from booking interviews and deleteing interviews
+  //creates a new days object and increments spots accordingly to appointment id
   const updateSpots = (id, increase = false) => {
     const updatedDays = state.days.map((day) => {
       const increment = increase ? 1 : -1;
@@ -70,6 +80,9 @@ const useApplicationData = () => {
     return updatedDays;
   };
 
+
+
+  //on first run, retrieves all api data and sets state accordingly
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
