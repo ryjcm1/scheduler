@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 const useApplicationData = () => {
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -12,7 +13,11 @@ const useApplicationData = () => {
   });
 
 
+  //sets appointments for both new appointments and updating appointments
+  //updates backend before setting the state
+  //spots are updated when function is used for booking a new appointment and not updating
   const bookInterview = (id, interview) => {
+    
     //when appointment is not null, changes that will be applied should not effect spots
     const isEdit = state.appointments[id].interview ? true : false;
 
@@ -40,7 +45,8 @@ const useApplicationData = () => {
   };
 
 
-  //deletes specified interview and updates spot accordingly
+  //changes a specified appointment id to null
+  //updates interview spot accordingly
   const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],

@@ -4,6 +4,8 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
+  //sets a new mode, and replaces the last mode in history when
+  //mode is used to replace and error
   function transition(newMode, replace = false) {
     setMode(newMode);
 
@@ -14,6 +16,8 @@ export default function useVisualMode(initial) {
     return setHistory((prev) => [...prev, newMode]);
   }
 
+  //used when the user presses cancel
+  //reverts the mode to the previous mode in history
   function back() {
     if (history.length > 1) {
       let historyCopy = [...history];
@@ -29,5 +33,3 @@ export default function useVisualMode(initial) {
     back,
   };
 }
-
-//result.current.mode = INITAL
