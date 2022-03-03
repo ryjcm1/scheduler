@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-Interview Scheduler is a state managed single-page applciation built on React. The data is persisted on a local PostgreSQL database. All client to server communication was done using the axios library. The application is tested with Jest and Cypress throughout the duration of the project.
+Interview Scheduler is a full-stack single-page applciation built on React. The data is persisted on a local PostgreSQL database. All client to server communication was done using the axios library. The application is tested with Jest and Cypress throughout the duration of the project.
 
 &emsp;
 ## Project Visuals 🌟
