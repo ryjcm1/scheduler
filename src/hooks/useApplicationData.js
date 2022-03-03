@@ -73,9 +73,10 @@ const useApplicationData = () => {
       const increment = increase ? 1 : -1;
 
       if (day.appointments.includes(id)) {
-        day.spots += increment;
+        let newSpots = day.spots + increment;
+        return {...day, spots: newSpots}
       }
-      return day;
+      return {...day};
     });
     return updatedDays;
   };
